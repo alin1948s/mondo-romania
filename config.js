@@ -2,8 +2,8 @@
 window.MONDO_CONFIG = Object.freeze({
   salesEmail: "comenzi@mondo-romania.ro",
   sourceCatalogUrl: "https://emondo.ro",
-  supabaseUrl: "",
-  supabasePublishableKey: "",
+  supabaseUrl: "https://ziqxbodoirnxdvwidvor.supabase.co",
+  supabasePublishableKey: "sb_publishable_esXZIDn7GU3TTdsqXslWEw_5iOzE0va",
   catalogMode: "snapshot",
   adminEnabled: false,
   quoteEnabled: false,
