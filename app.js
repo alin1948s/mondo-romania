@@ -595,12 +595,10 @@
     const rows = [];
     const size = 1000;
     for (let offset = 0; ; offset += size) {
-      const response = await fetch(`${base}/rest/v1/${path}${path.includes("?") ? "&" : "?"}limit=${size}`, {
+      const response = await fetch(`${base}/rest/v1/${path}${path.includes("?") ? "&" : "?"}limit=${size}&offset=${offset}`, {
         headers: {
           apikey: config.supabasePublishableKey,
-          "Accept-Profile": "public",
-          Range: `${offset}-${offset + size - 1}`,
-          "Range-Unit": "items"
+          "Accept-Profile": "public"
         },
         cache: "no-store"
       });
