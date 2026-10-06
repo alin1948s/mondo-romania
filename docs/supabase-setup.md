@@ -10,7 +10,7 @@
 
 ## Starea proiectului Supabase
 
-Proiectul Supabase MONDO este creat, migrarea inițială a fost aplicată din SQL Editor, iar `config.js` conține Project URL-ul și cheia publică. API-ul Supabase răspunde corect, însă tabela `products` este încă goală. Prima încercare de import a găsit o ambiguitate SQL în funcția de sincronizare; migrarea corectivă este `supabase/migrations/202610060002_fix_catalog_sync_product_id_ambiguity.sql` și trebuie aplicată înainte de a relua importul. Site-ul păstrează catalogul local până la importul complet; panoul de administrare și formularul de cerere nu sunt încă activate.
+Proiectul Supabase MONDO este creat, migrarea inițială și corecția funcției de sincronizare au fost aplicate, iar `config.js` conține Project URL-ul și cheia publică. Importul a publicat 1.607 produse în 12 categorii. Endpoint-ul public `catalog_public` confirmă 1.607 produse, iar website-ul citește acum catalogul din Supabase. Panoul de administrare și formularul de cerere rămân dezactivate până la configurarea contului administratorului și a funcției de ofertare.
 
 Cheia `sb_publishable_...` este destinată browserului și poate rămâne în `config.js`. Cheia `sb_secret_...` se folosește numai dintr-un shell privat sau din secretele funcției server-side: nu se trimite în chat, nu se pune în codul site-ului și nu se publică în repository. Cheile vechi `anon`/`service_role` pot fi folosite numai ca tranziție; noile chei Supabase sunt preferate.
 
@@ -32,7 +32,7 @@ Scriptul verifică snapshot-ul local înainte de scriere și importă cele **1.6
 
 ## Activează site-ul și panoul
 
-După ce scriptul confirmă importul celor 1.607 produse, setează în `config.js` `catalogMode: "supabase"`. Activează separat panoul doar după crearea utilizatorului Auth și inserarea acestuia în `admin_users`:
+Catalogul folosește deja `catalogMode: "supabase"`. Activează separat panoul doar după crearea utilizatorului Auth și inserarea acestuia în `admin_users`:
 
 ```js
 catalogMode: "supabase",
