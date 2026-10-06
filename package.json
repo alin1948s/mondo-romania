@@ -1,0 +1,15 @@
+{
+  "name": "mondo-romania-redesign",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "catalog:sync": "node scripts/sync-emondo-catalog.mjs",
+    "catalog:publish": "node scripts/publish-catalog-to-supabase.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

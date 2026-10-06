@@ -1,0 +1,4 @@
+project_id = "mondo-romania"
+
+[functions.submit-quote]
+verify_jwt = false
