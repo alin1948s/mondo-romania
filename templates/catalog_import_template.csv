@@ -1,1 +1,1 @@
-name,slug,product_code,category_slug,brand_slug,price_net,price_gross,currency,subtitle,summary,description,manufacturer,image_url,image_alt,source_url,color_options,size_options,standards,specifications_json,variants_json,assets_json,name_en,subtitle_en,summary_en,description_en,image_alt_en,details_en
+name,slug,product_code,category_slug,price_net,price_gross,currency,subtitle,summary,description,manufacturer,image_url,image_alt,source_url,color_options,size_options,standards,specifications_json

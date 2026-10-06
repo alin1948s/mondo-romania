@@ -10,15 +10,20 @@
 
 ## Starea proiectului Supabase
 
-Proiectul Supabase MONDO este creat, migrarea inițială și corecția funcției de sincronizare au fost aplicate, iar `config.js` conține Project URL-ul și cheia publică. Importul a publicat 1.607 produse în 12 categorii. Endpoint-ul public `catalog_public` confirmă 1.607 produse, iar website-ul citește acum catalogul din Supabase. Migrarea de clarificare a relațiilor produs-categorie este pregătită în `202610060003_clarify_product_category_relationships.sql`; trebuie rulată în SQL Editor înainte de următoarea sincronizare. Panoul de administrare și formularul de cerere rămân dezactivate până la configurarea contului administratorului și a funcției de ofertare.
+Proiectul Supabase MONDO este creat, migrarea inițială și corecția funcției de sincronizare au fost aplicate, iar `config.js` conține Project URL-ul și cheia publică. Importul a publicat 1.607 produse în 12 categorii. Endpoint-ul public `catalog_public` confirmă 1.607 produse, iar website-ul citește acum catalogul din Supabase. Migrarea de clarificare a relațiilor produs-categorie (`202610060003`) și migrarea de eliminare a tabelelor opționale goale (`202610060004`) sunt pregătite în SQL Editor. Panoul de administrare și formularul de cerere rămân dezactivate până la configurarea contului administratorului și a funcției de ofertare.
 
 Cheia `sb_publishable_...` este destinată browserului și poate rămâne în `config.js`. Cheia `sb_secret_...` se folosește numai dintr-un shell privat sau din secretele funcției server-side: nu se trimite în chat, nu se pune în codul site-ului și nu se publică în repository. Cheile vechi `anon`/`service_role` pot fi folosite numai ca tranziție; noile chei Supabase sunt preferate.
 
 ## Clarifică relațiile și sincronizează catalogul
 
-Rulează `supabase/migrations/202610060003_clarify_product_category_relationships.sql` în SQL Editor-ul Supabase. Migrarea elimină doar duplicatele în care categoria principală era repetată în `product_categories`; păstrează toate produsele, categoriile și legăturile suplimentare. Explicația completă a relațiilor este în [data-model.md](data-model.md).
+Rulează în SQL Editor-ul Supabase, în ordine:
 
-Pentru o instalare nouă, aplică migrațiile `202610060001`, `202610060002` și `202610060003` în ordine. Catalogul actual este deja importat. La o sincronizare viitoare, din PowerShell-ul local setează URL-ul proiectului și introdu cheia secretă la promptul ascuns; textul promptului nu este cheia. Nu salva cheia într-un fișier urmărit de Git:
+1. `supabase/migrations/202610060003_clarify_product_category_relationships.sql` elimină legăturile duplicate în care categoria principală era repetată în `product_categories`; păstrează toate produsele, categoriile și legăturile suplimentare.
+2. `supabase/migrations/202610060004_remove_unused_catalog_tables.sql` elimină `brands`, `product_translations`, `product_variants`, `product_specifications`, `product_assets` și coloana `products.brand_id`. Migrarea verifică întâi că aceste tabele sunt goale și că produsele nu au brand asociat; se oprește fără modificări dacă găsește date. Păstrează forma view-ului `catalog_public`, folosind `manufacturer` ca text de brand.
+
+Explicația relațiilor este în [data-model.md](data-model.md).
+
+Pentru o instalare nouă, aplică migrațiile `202610060001`, `202610060002`, `202610060003` și `202610060004` în ordine. Catalogul actual este deja importat. La o sincronizare viitoare, din PowerShell-ul local setează URL-ul proiectului și introdu cheia secretă la promptul ascuns; textul promptului nu este cheia. Nu salva cheia într-un fișier urmărit de Git:
 
 ```powershell
 $env:MONDO_SUPABASE_URL = "https://ziqxbodoirnxdvwidvor.supabase.co"
