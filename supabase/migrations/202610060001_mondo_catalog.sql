@@ -346,7 +346,7 @@ declare
   category_row jsonb;
   product_row jsonb;
   category_id uuid;
-  product_id uuid;
+  v_product_id uuid;
   current_mode text;
   category_slug text;
   inserted_products integer := 0;
@@ -423,14 +423,14 @@ begin
       source_url = excluded.source_url
     where current_product.management_mode = 'source';
 
-    select p.id, p.management_mode into product_id, current_mode
+    select p.id, p.management_mode into v_product_id, current_mode
     from public.products p where p.source_id = product_row->>'id';
     if current_mode = 'source' then
       if was_existing then updated_products := updated_products + 1; else inserted_products := inserted_products + 1; end if;
-      delete from public.product_categories pc where pc.product_id = product_id;
+      delete from public.product_categories pc where pc.product_id = v_product_id;
       for category_slug in select jsonb_array_elements_text(coalesce(product_row->'categories', '[]'::jsonb)) loop
         insert into public.product_categories(product_id, category_id)
-        select product_id, c.id from public.categories c where c.slug = category_slug
+        select v_product_id, c.id from public.categories c where c.slug = category_slug
         on conflict do nothing;
       end loop;
     end if;

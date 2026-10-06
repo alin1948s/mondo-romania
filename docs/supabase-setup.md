@@ -10,16 +10,17 @@
 
 ## Starea proiectului Supabase
 
-Proiectul Supabase MONDO este creat, migrarea a fost aplicată din SQL Editor, iar `config.js` conține Project URL-ul și cheia publică. API-ul Supabase răspunde corect, însă tabela `products` este încă goală. Site-ul păstrează catalogul local până la importul complet; panoul de administrare și formularul de cerere nu sunt încă activate.
+Proiectul Supabase MONDO este creat, migrarea inițială a fost aplicată din SQL Editor, iar `config.js` conține Project URL-ul și cheia publică. API-ul Supabase răspunde corect, însă tabela `products` este încă goală. Prima încercare de import a găsit o ambiguitate SQL în funcția de sincronizare; migrarea corectivă este `supabase/migrations/202610060002_fix_catalog_sync_product_id_ambiguity.sql` și trebuie aplicată înainte de a relua importul. Site-ul păstrează catalogul local până la importul complet; panoul de administrare și formularul de cerere nu sunt încă activate.
 
 Cheia `sb_publishable_...` este destinată browserului și poate rămâne în `config.js`. Cheia `sb_secret_...` se folosește numai dintr-un shell privat sau din secretele funcției server-side: nu se trimite în chat, nu se pune în codul site-ului și nu se publică în repository. Cheile vechi `anon`/`service_role` pot fi folosite numai ca tranziție; noile chei Supabase sunt preferate.
 
 ## Aplică migrarea și încarcă întregul catalog
 
-1. Din PowerShell-ul local, setează URL-ul proiectului și introdu cheia secretă la promptul ascuns. Migrarea este deja aplicată în proiectul MONDO. Nu salva cheia într-un fișier urmărit de Git:
+1. Rulează migrarea corectivă `supabase/migrations/202610060002_fix_catalog_sync_product_id_ambiguity.sql` în SQL Editor-ul Supabase.
+2. Din PowerShell-ul local, setează URL-ul proiectului și introdu cheia secretă la promptul ascuns. Nu salva cheia într-un fișier urmărit de Git:
 
 ```powershell
-$env:MONDO_SUPABASE_URL = "https://<project-ref>.supabase.co"
+$env:MONDO_SUPABASE_URL = "https://ziqxbodoirnxdvwidvor.supabase.co"
 $secretKey = Read-Host "Supabase secret key" -AsSecureString
 $env:MONDO_SUPABASE_SECRET_KEY = [System.Net.NetworkCredential]::new("", $secretKey).Password
 npm run catalog:publish
