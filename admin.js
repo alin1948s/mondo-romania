@@ -98,7 +98,7 @@
   }
 
   function renderConfigNotice() {
-    root.innerHTML = `<section class="admin-login-wrap"><div class="admin-login"><a class="admin-brand" href="/" aria-label="MONDO România"><span class="brand-mark">M</span><span>MONDO <small>ADMINISTRARE</small></span></a><div class="eyebrow">Panou privat</div><h1>Conectarea bazei de date nu este configurată.</h1><p>Panoul rămâne dezactivat până când proiectul Supabase al clientului este conectat, migrarea aplicată și contul de administrator creat.</p><p class="admin-note">Nu introdu parole sau chei secrete în această pagină. Cheia publică poate fi pusă în configurația site-ului; cheia secretă rămâne doar în Supabase și în mediul serverului de sincronizare.</p><a class="button secondary" href="/">Înapoi la website</a></div></section>`;
+    root.innerHTML = `<section class="admin-login-wrap"><div class="admin-login"><a class="admin-brand" href="/" aria-label="MONDO România"><span class="brand-mark">M</span><span>MONDO <small>ADMINISTRARE</small></span></a><div class="eyebrow">Panou privat</div><h1>Accesul la administrare nu este activat.</h1><p>Catalogul este conectat la Supabase. Panoul privat va fi disponibil după aplicarea migrațiilor, crearea contului de administrator și activarea accesului în configurația website-ului.</p><p class="admin-note">Nu introdu parole sau chei secrete în această pagină. Cheia publică poate fi pusă în configurația site-ului; cheia secretă rămâne doar în Supabase și în mediul serverului de sincronizare.</p><a class="button secondary" href="/">Înapoi la website</a></div></section>`;
   }
 
   function renderLogin(error = "") {
